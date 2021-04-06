@@ -13,9 +13,6 @@ def scrapping_book_information(url):
     headers = []
     info = []
 
-
-
-
     # Make a Get request to fetch the raw HTML content
     html_content = requests.get(url).text
 
@@ -28,7 +25,6 @@ def scrapping_book_information(url):
         td = tr.find('td')
         headers.append(th.text)
         info.append(td.text)
-
 
     # extract book title
     title = soup.find("h1")
@@ -50,8 +46,6 @@ def scrapping_book_information(url):
     headers.append('Product Category')
     info.append(category.text)
 
-    # print for the book's url
-
     # find the url of the product
     headers.append('url')
     info.append(url)
@@ -70,8 +64,6 @@ def scrapping_book_information(url):
         result = ('https://books.toscrape.com/' + i['src'])
         headers.append('image_url')
         info.append(result)
-
-
 
     csv_writer.writerow(headers)
     csv_writer.writerow(info)
