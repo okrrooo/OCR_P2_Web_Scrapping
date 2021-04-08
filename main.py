@@ -2,16 +2,17 @@
 import requests
 import csv
 from bs4 import BeautifulSoup
+import urllib.parse
 
 filename = "information.csv"
-csv_writer = csv.writer(open(filename, 'w', encoding="utf-8"))
+csv_writer = csv.writer(open(filename, 'w+', newline='', encoding="utf-8"))
 
 
 def scrapping_book_information(url):
 
-    # where all the data will be listed
-    headers = []
-    info = []
+    # where all the csv data will be listed
+    row1 = []
+    row2 = []
 
     # Make a Get request to fetch the raw HTML content
     html_content = requests.get(url).text
@@ -23,51 +24,86 @@ def scrapping_book_information(url):
     for tr in soup.find_all("tr"):
         th = tr.find('th')
         td = tr.find('td')
-        headers.append(th.text)
-        info.append(td.text)
+        row1.append(th.text)
+        row2.append(td.text)
 
     # extract book title
     title = soup.find("h1")
-    info.append(title.text)
-    headers.append('Title')
+    row2.append(title.text)
+    row1.append('Title')
 
     # find the production description tag
     tag_product_description = soup.find('div', id='product_description')
-    headers.append(tag_product_description.text)
+    row1.append(tag_product_description.text)
 
     # find paragraph description
     product_description = soup.find('div', id='product_description').findNextSibling().text
-    info.append(product_description)
+    row2.append(product_description)
 
     # find product category
     category = soup.find('ul', class_='breadcrumb')
     category = category.find_all('li')[2]
     category = category.find('a', href=True)
-    headers.append('Product Category')
-    info.append(category.text)
+    row1.append('Product Category')
+    row2.append(category.text)
 
     # find the url of the product
-    headers.append('url')
-    info.append(url)
+    row1.append('url')
+    row2.append(url)
 
     # find the review rating
     review_rating = soup.find(class_='star-rating')
     rating = (review_rating['class'][1])
-    headers.append('Review rating out of 5')
-    info.append(rating)
+    row1.append('Review rating out of 5')
+    row2.append(rating)
 
     # find image url
-
     image_url = soup.findAll('img', limit=1)
     for i in image_url:
 
         result = ('https://books.toscrape.com/' + i['src'])
-        headers.append('image_url')
-        info.append(result)
+        row1.append('image_url')
+        row2.append(result)
 
-    csv_writer.writerow(headers)
-    csv_writer.writerow(info)
+    # Using csv to extract information into a csv file
+    csv_writer.writerow(row1)
+    csv_writer.writerow(row2)
 
 
 scrapping_book_information('https://books.toscrape.com/catalogue/its-only-the-himalayas_981/index.html')
+
+
+def travel_category_books_url(url):
+
+    # Make a Get request to fetch the raw HTML content
+    html_content = requests.get(url).text
+
+    # Parse the html content
+    soup = BeautifulSoup(html_content, "html.parser")
+
+    # Extracting the name of the category
+    category_name = soup.find('h1').text
+
+    # Extracting all products url from a category
+    for i in soup.find_all('div', {'class': 'image_container'}):
+        links = i.find('a', href=True)
+        links = links['href'].replace('../../..', '')
+        print('https://books.toscrape.com/catalogue' + links)
+
+
+travel_category_books_url('https://books.toscrape.com/catalogue/category/books/travel_2/index.html')
+
+# def scrapping_books_information_from_url():
+#
+#
+#
+#
+# #QUESTIONS:
+#
+# # COMMENT COMBINER LES DEUX FONCTIONS???
+# # COMMENT LE PRINT EN CSV ?
+## passer en parametre de la premiere fonction, le ' links ' ?
+
+
+
 
