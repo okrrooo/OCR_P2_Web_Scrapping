@@ -1,3 +1,11 @@
+Bonjour, Ceci est mon premier script dans le cadre de ma formation sur Openclassrooms.
+Dans le cadre de mon 'projet n°2' je dois faire du webscraping en utilisant beautifulsoup
+et requests.
+
+Je suis donc charger de récupérer les informations du site 'https://books.toscrape.com/index.html'
+
+Voici donc le mail qui me décrit exactement ma mission :
+
 Objet : Programme d'extraction des prix
 À : Vous
 De : Sam
