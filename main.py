@@ -70,6 +70,7 @@ def book_information(book_url, csv_writer):
 
     # find product description
     product_description = soup.find('div', id='product_description')
+    # we are using is not none to avoid error when books dosent have a product description
     if product_description is not None:
         product_description = product_description.findNextSibling().text
     data.append(product_description)
@@ -109,8 +110,8 @@ def book_information(book_url, csv_writer):
     filename = filename.replace('/', '')
     filename = filename.replace('*', '')
     filename = filename.replace('?', '')
-    # adding .png to the filename to create png files
-    filename = filename + '.png'
+    # adding .jpg to the filename we downloaded.
+    filename = filename + '.jpg'
 
     # using requests.get to get the image
     r = requests.get(image)
@@ -118,6 +119,8 @@ def book_information(book_url, csv_writer):
     if r.status_code == 200:
         with open(filename, 'wb') as f:
             f.write(r.content)
+    else:
+        print('Failed to download image file')
 
     # Using csv to write information into  csv file
 
@@ -166,6 +169,7 @@ def gathering_links_from_category(links_from_category, csv_writer):
         # gathering links from the new page
         # print(base_url + relative_url)
         gathering_links_from_category(base_url + relative_url, csv_writer)
+
 
 # This function will make a list of all the books category on books.toscrape.com
 
