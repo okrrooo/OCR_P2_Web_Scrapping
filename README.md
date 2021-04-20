@@ -2,6 +2,8 @@ Pour créer votre environnement virtuel suivez la doc officiel :
 
 https://docs.python.org/3/tutorial/venv.html
 
+Les modules requis sont dans le requirements.txt
+
 Exécutez main.py pour utiliser le programme.
 
 ----
