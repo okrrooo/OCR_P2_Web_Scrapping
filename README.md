@@ -1,15 +1,8 @@
-Pour créer votre environnement virtuel, lancez Powershell sous windows et saisissez : 
-virtualenv -p $env:python3 env
-Ceci va créer un dossier 'env' dans votre répertoire courant.
+Pour créer votre environnement virtuel suivez la doc officiel : 
 
-Pour activer votre environnement, sous Powershell saisissez :
-./env/scripts/activate.ps1
+https://docs.python.org/3/tutorial/venv.html
 
-Enfin, pour installer les modules dont nous aurons besoin dans ce projet appuyez vous du fichier requirements.txt en saisissant :
-pip install -r requirements.txt
-
-Notre environnement est désormais opérationnel. Lancez le Script main.py pour commencer le parsing !
-
+Exécutez main.py pour utiliser le programme.
 
 ----
 
