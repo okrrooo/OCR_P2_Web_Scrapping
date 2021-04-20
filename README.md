@@ -1,3 +1,14 @@
+Pour créer votre environnement virtuel suivez la doc officiel : 
+
+https://docs.python.org/3/tutorial/venv.html
+
+Les modules requis sont dans le requirements.txt
+
+Exécutez main.py pour utiliser le programme.
+
+----
+
+
 Bonjour, Ceci est mon premier script dans le cadre de ma formation sur Openclassrooms.
 Dans le cadre de mon 'projet n°2' je dois faire du webscraping en utilisant beautifulsoup
 et requests.
