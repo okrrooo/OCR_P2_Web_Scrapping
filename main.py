@@ -198,6 +198,5 @@ def gathering_all_categories_links(book_to_scrape_index):
         # closing the csv file
         file.close()
 
-
 gathering_all_categories_links('https://books.toscrape.com/index.html')
 
